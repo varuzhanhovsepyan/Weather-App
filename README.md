@@ -50,7 +50,7 @@ lib/
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd weather_app_new
+cd Weather-App
 ```
 
 2. Install dependencies:
