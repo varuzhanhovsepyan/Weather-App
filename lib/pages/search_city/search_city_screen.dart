@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../features/weather/weather_state.dart';
 import '../../shared/theme/colors.dart';
 
@@ -94,6 +95,8 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   }
 
   Widget _buildHeader() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 16),
       child: Column(
@@ -104,9 +107,9 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
             child: const Icon(Icons.close, size: 24, color: Color(AppColors.textSecondary)),
           ),
           const SizedBox(height: 24),
-          const Text(
-            'Get Weather',
-            style: TextStyle(
+          Text(
+            l10n.getWeather,
+            style: const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w700,
               color: Color(AppColors.textPrimary),
@@ -118,12 +121,14 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   }
 
   Widget _buildSearchBar() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
-          hintText: 'Enter city name',
+          hintText: l10n.enterCityName,
           prefixIcon: const Icon(Icons.search),
           suffixIcon: _searchController.text.isNotEmpty
               ? IconButton(
@@ -151,15 +156,17 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   }
 
   Widget _buildSearchHistory() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Consumer<WeatherState>(
       builder: (context, weatherState, child) {
         final history = weatherState.searchHistory;
 
         if (history.isEmpty) {
-          return const Center(
+          return Center(
             child: Text(
-              'No search history',
-              style: TextStyle(
+              l10n.noSearchHistory,
+              style: const TextStyle(
                 color: Color(AppColors.textSecondary),
                 fontSize: 16,
               ),
@@ -175,9 +182,9 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Past Search',
-                    style: TextStyle(
+                  Text(
+                    l10n.pastSearch,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Color(AppColors.textPrimary),
@@ -190,9 +197,9 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                     style: TextButton.styleFrom(
                       foregroundColor: const Color(AppColors.clearBlue),
                     ),
-                    child: const Text(
-                      'Clear All',
-                      style: TextStyle(
+                    child: Text(
+                      l10n.clearAll,
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w300,
                       ),
@@ -244,11 +251,13 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   }
 
   Widget _buildSearchResults() {
+    final l10n = AppLocalizations.of(context)!;
+    
     if (_filteredCities.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
-          'No cities found',
-          style: TextStyle(
+          l10n.noCitiesFound,
+          style: const TextStyle(
             color: Color(AppColors.textSecondary),
             fontSize: 16,
           ),
@@ -309,27 +318,29 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   }
 
   String _getCityCountry(String city) {
+    final l10n = AppLocalizations.of(context)!;
+    
     final countries = {
-      'Moscow': 'Russia',
-      'London': 'United Kingdom',
-      'New York': 'USA',
-      'Paris': 'France',
-      'Tokyo': 'Japan',
-      'Berlin': 'Germany',
-      'Rome': 'Italy',
-      'Madrid': 'Spain',
-      'Dubai': 'UAE',
-      'Sydney': 'Australia',
-      'Los Angeles': 'USA',
-      'Singapore': 'Singapore',
-      'Istanbul': 'Turkey',
-      'Bangkok': 'Thailand',
-      'Amsterdam': 'Netherlands',
-      'Barcelona': 'Spain',
-      'Miami': 'USA',
-      'San Francisco': 'USA',
-      'Toronto': 'Canada',
-      'Seoul': 'South Korea',
+      'Moscow': l10n.russia,
+      'London': l10n.unitedKingdom,
+      'New York': l10n.usa,
+      'Paris': l10n.france,
+      'Tokyo': l10n.japan,
+      'Berlin': l10n.germany,
+      'Rome': l10n.italy,
+      'Madrid': l10n.spain,
+      'Dubai': l10n.uae,
+      'Sydney': l10n.australia,
+      'Los Angeles': l10n.usa,
+      'Singapore': l10n.singapore,
+      'Istanbul': l10n.turkey,
+      'Bangkok': l10n.thailand,
+      'Amsterdam': l10n.netherlands,
+      'Barcelona': l10n.spain,
+      'Miami': l10n.usa,
+      'San Francisco': l10n.usa,
+      'Toronto': l10n.canada,
+      'Seoul': l10n.southKorea,
     };
     return countries[city] ?? '';
   }

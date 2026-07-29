@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../features/weather/weather_state.dart';
 import '../../shared/ui/molecules/forecast_day_item.dart';
 import '../../shared/theme/colors.dart';
+import '../../shared/constants/app_assets.dart';
 import '../search_city/search_city_screen.dart';
 
 class WeatherHomeScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            'assets/images/location.png',
+            AppAssets.location,
             width: 32,
             height: 32,
           ),
@@ -80,7 +81,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
               );
             },
             child: Image.asset(
-              'assets/images/search.png',
+              AppAssets.search,
               width: 32,
               height: 32,
             ),
@@ -98,7 +99,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/images/sunBackground.png',
+          AppAssets.sunBackground,
           width: screenWidth * 0.5,
           height: screenWidth * 0.5,
           fit: BoxFit.cover,
@@ -114,7 +115,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset(
-                        'assets/images/mark.png',
+                        AppAssets.mark,
                         width: 16,
                         height: 16,
                         color: const Color(AppColors.textSecondary),

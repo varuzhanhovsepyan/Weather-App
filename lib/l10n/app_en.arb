@@ -1,0 +1,91 @@
+{
+  "@@locale": "en",
+  "getWeather": "Get Weather",
+  "@getWeather": {
+    "description": "Title for search city screen"
+  },
+  "enterCityName": "Enter city name",
+  "@enterCityName": {
+    "description": "Hint text for city search input"
+  },
+  "noSearchHistory": "No search history",
+  "@noSearchHistory": {
+    "description": "Message when search history is empty"
+  },
+  "pastSearch": "Past Search",
+  "@pastSearch": {
+    "description": "Title for search history section"
+  },
+  "clearAll": "Clear All",
+  "@clearAll": {
+    "description": "Button to clear all search history"
+  },
+  "noCitiesFound": "No cities found",
+  "@noCitiesFound": {
+    "description": "Message when no cities match search query"
+  },
+  "russia": "Russia",
+  "@russia": {
+    "description": "Country name"
+  },
+  "unitedKingdom": "United Kingdom",
+  "@unitedKingdom": {
+    "description": "Country name"
+  },
+  "usa": "USA",
+  "@usa": {
+    "description": "Country name"
+  },
+  "france": "France",
+  "@france": {
+    "description": "Country name"
+  },
+  "japan": "Japan",
+  "@japan": {
+    "description": "Country name"
+  },
+  "germany": "Germany",
+  "@germany": {
+    "description": "Country name"
+  },
+  "italy": "Italy",
+  "@italy": {
+    "description": "Country name"
+  },
+  "spain": "Spain",
+  "@spain": {
+    "description": "Country name"
+  },
+  "uae": "UAE",
+  "@uae": {
+    "description": "Country name"
+  },
+  "australia": "Australia",
+  "@australia": {
+    "description": "Country name"
+  },
+  "singapore": "Singapore",
+  "@singapore": {
+    "description": "Country name"
+  },
+  "turkey": "Turkey",
+  "@turkey": {
+    "description": "Country name"
+  },
+  "thailand": "Thailand",
+  "@thailand": {
+    "description": "Country name"
+  },
+  "netherlands": "Netherlands",
+  "@netherlands": {
+    "description": "Country name"
+  },
+  "canada": "Canada",
+  "@canada": {
+    "description": "Country name"
+  },
+  "southKorea": "South Korea",
+  "@southKorea": {
+    "description": "Country name"
+  }
+}
