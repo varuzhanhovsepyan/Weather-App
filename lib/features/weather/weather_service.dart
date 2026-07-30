@@ -56,8 +56,8 @@ class WeatherService {
         dateTime: DateTime.parse(data['current']['time']),
       );
       
-      final List<ForecastModel> forecast = [];
       final dailyData = data['daily'];
+      final List<ForecastModel> forecast = [];
       final List<String> dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
       
       for (int i = 1; i < dailyData['time'].length; i++) {
