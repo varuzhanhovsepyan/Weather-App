@@ -53,6 +53,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   void _onSearchChanged() {
     final query = _searchController.text.toLowerCase();
+
     setState(() {
       if (query.isEmpty) {
         _filteredCities = [];
@@ -66,7 +67,9 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   Future<void> _selectCity(String cityName) async {
     final weatherState = context.read<WeatherState>();
+
     await weatherState.searchCity(cityName);
+
     if (mounted) {
       Navigator.pop(context);
     }
@@ -75,7 +78,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -96,23 +99,32 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   Widget _buildHeader() {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 16),
+      padding: const EdgeInsets.only(
+        left: 16,
+        right: 16,
+        bottom: 32,
+        top: 16,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: const Icon(Icons.close, size: 24, color: Color(AppColors.textSecondary)),
+            child: Icon(
+              Icons.close,
+              size: 24,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
           ),
           const SizedBox(height: 24),
           Text(
             l10n.getWeather,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w700,
-              color: Color(AppColors.textPrimary),
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],
@@ -122,9 +134,9 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   Widget _buildSearchBar() {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextField(
         controller: _searchController,
         decoration: InputDecoration(
@@ -140,15 +152,21 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
               : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(AppColors.lightGrey)),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(AppColors.lightGrey)),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.outline,
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Color(AppColors.primary)),
+            borderSide: const BorderSide(
+              color: Color(AppColors.primary),
+            ),
           ),
         ),
       ),
@@ -157,7 +175,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   Widget _buildSearchHistory() {
     final l10n = AppLocalizations.of(context)!;
-    
+
     return Consumer<WeatherState>(
       builder: (context, weatherState, child) {
         final history = weatherState.searchHistory;
@@ -166,8 +184,8 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
           return Center(
             child: Text(
               l10n.noSearchHistory,
-              style: const TextStyle(
-                color: Color(AppColors.textSecondary),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 16,
               ),
             ),
@@ -178,16 +196,16 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     l10n.pastSearch,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
-                      color: Color(AppColors.textPrimary),
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   TextButton(
@@ -214,6 +232,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                 itemCount: history.length,
                 itemBuilder: (context, index) {
                   final city = history[index];
+
                   return InkWell(
                     onTap: () => _selectCity(city),
                     child: Padding(
@@ -223,16 +242,20 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                           Expanded(
                             child: Text(
                               city,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w400,
-                                color: Color(AppColors.textPrimary),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface,
                               ),
                             ),
                           ),
                           IconButton(
                             icon: const Icon(Icons.close, size: 20),
-                            color: const Color(AppColors.textSecondary),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant,
                             onPressed: () {
                               weatherState.removeFromSearchHistory(city);
                             },
@@ -252,13 +275,13 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   Widget _buildSearchResults() {
     final l10n = AppLocalizations.of(context)!;
-    
+
     if (_filteredCities.isEmpty) {
       return Center(
         child: Text(
           l10n.noCitiesFound,
-          style: const TextStyle(
-            color: Color(AppColors.textSecondary),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
             fontSize: 16,
           ),
         ),
@@ -268,24 +291,30 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: _filteredCities.length,
-      separatorBuilder: (context, index) => const Divider(
-        height: 1,
-        indent: 16,
-        endIndent: 16,
-      ),
+      separatorBuilder: (context, index) {
+        return Divider(
+          height: 1,
+          indent: 16,
+          endIndent: 16,
+          color: Theme.of(context).colorScheme.outlineVariant,
+        );
+      },
       itemBuilder: (context, index) {
         final city = _filteredCities[index];
         final country = _getCityCountry(city);
-        
+
         return InkWell(
           onTap: () => _selectCity(city),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 16,
+            ),
             child: RichText(
               text: TextSpan(
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 17,
-                  color: Color(AppColors.textPrimary),
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
                 children: [
                   TextSpan(
@@ -297,14 +326,19 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
                   TextSpan(
                     text: ' • ',
                     style: TextStyle(
-                      color: const Color(AppColors.textSecondary).withValues(alpha: 0.5),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurfaceVariant
+                          .withValues(alpha: 0.5),
                       fontWeight: FontWeight.w300,
                     ),
                   ),
                   TextSpan(
                     text: country,
-                    style: const TextStyle(
-                      color: Color(AppColors.textSecondary),
+                    style: TextStyle(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurfaceVariant,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -319,7 +353,7 @@ class _SearchCityScreenState extends State<SearchCityScreen> {
 
   String _getCityCountry(String city) {
     final l10n = AppLocalizations.of(context)!;
-    
+
     final countries = {
       'Moscow': l10n.russia,
       'London': l10n.unitedKingdom,

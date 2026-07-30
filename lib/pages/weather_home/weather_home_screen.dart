@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../features/weather/weather_state.dart';
 import '../../shared/ui/molecules/forecast_day_item.dart';
-import '../../shared/theme/colors.dart';
 import '../../shared/constants/app_assets.dart';
+import '../../features/theme/theme_state.dart';
+import '../examples/examples_hub_screen.dart';
 import '../search_city/search_city_screen.dart';
 
 class WeatherHomeScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<WeatherState>().setMockWeather();
     });
@@ -28,13 +30,15 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
       body: Consumer<WeatherState>(
         builder: (context, weatherState, child) {
           final weather = weatherState.currentWeather;
-          
+
           if (weather == null) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           return Container(
-            color: const Color(0xFFFAFAFA),
+            color: Theme.of(context).scaffoldBackgroundColor,
             child: SafeArea(
               child: Column(
                 children: [
@@ -61,8 +65,11 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
   }
 
   Widget _buildAppBar(BuildContext context) {
+    final theme = Theme.of(context);
+    final themeState = context.watch<ThemeState>();
+
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -71,31 +78,69 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
             width: 32,
             height: 32,
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SearchCityScreen(),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ExamplesHubScreen(),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.science_outlined,
+                  size: 32,
+                  color: theme.colorScheme.onSurface,
                 ),
-              );
-            },
-            child: Image.asset(
-              AppAssets.search,
-              width: 32,
-              height: 32,
-            ),
+              ),
+              const SizedBox(width: 16),
+
+IconButton(
+  onPressed: () {
+    context.read<ThemeState>().toggleTheme();
+  },
+  icon: Icon(
+    themeState.isDarkMode
+        ? Icons.dark_mode
+        : Icons.light_mode,
+  ),
+  color: theme.colorScheme.onSurface,
+),
+
+const SizedBox(width: 8),
+              const SizedBox(width: 16),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const SearchCityScreen(),
+                    ),
+                  );
+                },
+                child: Image.asset(
+                  AppAssets.search,
+                  width: 32,
+                  height: 32,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildMainWeatherSection(BuildContext context, dynamic weather) {
+  Widget _buildMainWeatherSection(
+    BuildContext context,
+    dynamic weather,
+  ) {
     final screenWidth = MediaQuery.of(context).size.width;
-    
+    final theme = Theme.of(context);
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
@@ -108,48 +153,48 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
           child: Padding(
             padding: const EdgeInsets.only(left: 2),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(
-                        AppAssets.mark,
-                        width: 16,
-                        height: 16,
-                        color: const Color(AppColors.textSecondary),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        weather.cityName,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Color(AppColors.textSecondary),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${weather.temperature.toInt()}°',
-                    style: const TextStyle(
-                      fontSize: 120,
-                      fontWeight: FontWeight.w400,
-                      height: 1.0,
-                      color: Color(AppColors.textPrimary),
-                      letterSpacing: -4,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      AppAssets.mark,
+                      width: 16,
+                      height: 16,
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    weather.description,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Color(AppColors.textPrimary),
+                    const SizedBox(width: 6),
+                    Text(
+                      weather.cityName,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  '${weather.temperature.toInt()}°',
+                  style: TextStyle(
+                    fontSize: 120,
+                    fontWeight: FontWeight.w400,
+                    height: 1,
+                    color: theme.colorScheme.onSurface,
+                    letterSpacing: -4,
                   ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  weather.description,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
               ],
             ),
           ),
@@ -162,7 +207,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 32),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -177,6 +222,7 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
           weatherState.forecast.length,
           (index) {
             final forecast = weatherState.forecast[index];
+
             return ForecastDayItem(
               dayName: forecast.dayName,
               icon: forecast.icon,
