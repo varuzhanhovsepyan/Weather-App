@@ -21,5 +21,11 @@
   "thailand": "Таиланд",
   "netherlands": "Нидерланды",
   "canada": "Канада",
-  "southKorea": "Южная Корея"
+  "southKorea": "Южная Корея",
+  "pushNotifications": "Push-уведомления",
+  "fcmToken": "FCM токен",
+  "fcmTokenUnavailable": "Токен пока недоступен",
+  "copyFcmToken": "Скопировать токен",
+  "fcmTokenCopied": "Токен скопирован",
+  "close": "Закрыть"
 }

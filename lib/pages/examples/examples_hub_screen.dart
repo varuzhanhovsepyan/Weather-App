@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import '../../shared/theme/colors.dart';
+
+import '../../l10n/app_localizations.dart';
 import '../animations_example/animations_example_screen.dart';
 import '../boxes_example/boxes_example_screen.dart';
 import '../list_view_example/list_view_example_screen.dart';
+import '../notifications/notifications_screen.dart';
 
 class ExamplesHubScreen extends StatelessWidget {
   const ExamplesHubScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -17,26 +21,33 @@ class ExamplesHubScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: const [
-          _ExampleTile(
+        children: [
+          const _ExampleTile(
             title: 'ListView',
             subtitle: 'builder · separated · custom',
             icon: Icons.list_alt,
             screen: ListViewExampleScreen(),
           ),
-          SizedBox(height: 12),
-          _ExampleTile(
+          const SizedBox(height: 12),
+          const _ExampleTile(
             title: 'Animations',
             subtitle: 'drawing · controller · implicit · explicit',
             icon: Icons.animation,
             screen: AnimationsExampleScreen(),
           ),
-          SizedBox(height: 12),
-          _ExampleTile(
+          const SizedBox(height: 12),
+          const _ExampleTile(
             title: 'Boxes',
             subtitle: 'LimitedBox · ConstrainedBox',
             icon: Icons.crop_square,
             screen: BoxesExampleScreen(),
+          ),
+          const SizedBox(height: 12),
+          _ExampleTile(
+            title: l10n.pushNotifications,
+            subtitle: l10n.fcmToken,
+            icon: Icons.notifications_outlined,
+            screen: const NotificationsScreen(),
           ),
         ],
       ),

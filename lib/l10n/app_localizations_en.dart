@@ -73,4 +73,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get southKorea => 'South Korea';
+
+  @override
+  String get pushNotifications => 'Push Notifications';
+
+  @override
+  String get fcmToken => 'FCM Token';
+
+  @override
+  String get fcmTokenUnavailable => 'Token is not available yet';
+
+  @override
+  String get copyFcmToken => 'Copy Token';
+
+  @override
+  String get fcmTokenCopied => 'Token copied';
+
+  @override
+  String get close => 'Close';
 }

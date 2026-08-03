@@ -29,6 +29,7 @@ class WeatherApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
 
+          locale: const Locale('en'),
           supportedLocales: const [
             Locale('en'),
             Locale('ru'),

@@ -87,5 +87,29 @@
   "southKorea": "South Korea",
   "@southKorea": {
     "description": "Country name"
+  },
+  "pushNotifications": "Push Notifications",
+  "@pushNotifications": {
+    "description": "Title for push notifications screen"
+  },
+  "fcmToken": "FCM Token",
+  "@fcmToken": {
+    "description": "Label for Firebase Cloud Messaging token"
+  },
+  "fcmTokenUnavailable": "Token is not available yet",
+  "@fcmTokenUnavailable": {
+    "description": "Message when FCM token cannot be retrieved"
+  },
+  "copyFcmToken": "Copy Token",
+  "@copyFcmToken": {
+    "description": "Button to copy FCM token to clipboard"
+  },
+  "fcmTokenCopied": "Token copied",
+  "@fcmTokenCopied": {
+    "description": "Snackbar after FCM token is copied"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close dialog button"
   }
 }

@@ -229,6 +229,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'South Korea'**
   String get southKorea;
+
+  /// Title for push notifications screen
+  ///
+  /// In en, this message translates to:
+  /// **'Push Notifications'**
+  String get pushNotifications;
+
+  /// Label for Firebase Cloud Messaging token
+  ///
+  /// In en, this message translates to:
+  /// **'FCM Token'**
+  String get fcmToken;
+
+  /// Message when FCM token cannot be retrieved
+  ///
+  /// In en, this message translates to:
+  /// **'Token is not available yet'**
+  String get fcmTokenUnavailable;
+
+  /// Button to copy FCM token to clipboard
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Token'**
+  String get copyFcmToken;
+
+  /// Snackbar after FCM token is copied
+  ///
+  /// In en, this message translates to:
+  /// **'Token copied'**
+  String get fcmTokenCopied;
+
+  /// Close dialog button
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
 }
 
 class _AppLocalizationsDelegate

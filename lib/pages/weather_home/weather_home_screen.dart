@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../features/notifications/notification_state.dart';
 import '../../features/weather/weather_state.dart';
 import '../../shared/ui/molecules/forecast_day_item.dart';
 import '../../shared/constants/app_assets.dart';
 import '../../features/theme/theme_state.dart';
 import '../examples/examples_hub_screen.dart';
+import '../notifications/fcm_token_dialog.dart';
 import '../search_city/search_city_screen.dart';
 
 class WeatherHomeScreen extends StatefulWidget {
@@ -19,8 +21,14 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<WeatherState>().setMockWeather();
+
+      final notificationState = context.read<NotificationState>();
+      await notificationState.initialize();
+
+      if (!mounted) return;
+      await showFcmTokenDialog(context, notificationState);
     });
   }
 

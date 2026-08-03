@@ -73,4 +73,22 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get southKorea => 'Южная Корея';
+
+  @override
+  String get pushNotifications => 'Push-уведомления';
+
+  @override
+  String get fcmToken => 'FCM токен';
+
+  @override
+  String get fcmTokenUnavailable => 'Токен пока недоступен';
+
+  @override
+  String get copyFcmToken => 'Скопировать токен';
+
+  @override
+  String get fcmTokenCopied => 'Токен скопирован';
+
+  @override
+  String get close => 'Закрыть';
 }
