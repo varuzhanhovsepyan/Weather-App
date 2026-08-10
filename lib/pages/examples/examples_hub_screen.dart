@@ -5,6 +5,8 @@ import '../animations_example/animations_example_screen.dart';
 import '../boxes_example/boxes_example_screen.dart';
 import '../list_view_example/list_view_example_screen.dart';
 import '../notifications/notifications_screen.dart';
+import '../native_views/native_views_screen.dart';
+import '../native_views/hybrid_composition_screen.dart';
 
 class ExamplesHubScreen extends StatelessWidget {
   const ExamplesHubScreen({super.key});
@@ -48,6 +50,20 @@ class ExamplesHubScreen extends StatelessWidget {
             subtitle: l10n.fcmToken,
             icon: Icons.notifications_outlined,
             screen: const NotificationsScreen(),
+          ),
+          const SizedBox(height: 12),
+          _ExampleTile(
+            title: 'Native Views',
+            subtitle: 'Texture Layer',
+            icon: Icons.android,
+            screen: NativeViewsScreen(),
+          ),
+          const SizedBox(height: 12),
+          _ExampleTile(
+            title: 'Hybrid Composition',
+            subtitle: 'Hybrid Composition',
+            icon: Icons.layers,
+            screen: HybridCompositionScreen(),
           ),
         ],
       ),

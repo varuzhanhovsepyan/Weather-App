@@ -16,16 +16,19 @@ class NotificationState extends ChangeNotifier {
   String? get error => _error;
 
   Future<void> initialize() async {
-    if (_isInitialized || _isLoading) return;
+    if (_isInitialized) return;
 
     _isLoading = true;
     _error = null;
     notifyListeners();
 
     try {
-      await _notificationService.initialize();
+      await _notificationService
+          .initialize()
+          .timeout(const Duration(seconds: 5));
       _fcmToken = await _notificationService.getToken();
 
+      _tokenRefreshSubscription?.cancel();
       _tokenRefreshSubscription =
           _notificationService.onTokenRefresh.listen((token) {
         _fcmToken = token;
@@ -33,10 +36,10 @@ class NotificationState extends ChangeNotifier {
       });
 
       _isInitialized = true;
-      _isLoading = false;
-      notifyListeners();
     } catch (e) {
       _error = e.toString();
+      _isInitialized = true;
+    } finally {
       _isLoading = false;
       notifyListeners();
     }

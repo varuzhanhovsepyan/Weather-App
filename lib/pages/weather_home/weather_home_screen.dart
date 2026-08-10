@@ -22,7 +22,10 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<WeatherState>().setMockWeather();
+      final weatherState = context.read<WeatherState>();
+      if (weatherState.currentWeather == null) {
+        weatherState.setMockWeather();
+      }
 
       final notificationState = context.read<NotificationState>();
       await notificationState.initialize();
@@ -40,9 +43,11 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
           final weather = weatherState.currentWeather;
 
           if (weather == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!mounted) return;
+              context.read<WeatherState>().setMockWeather();
+            });
+            return const SizedBox.shrink();
           }
 
           return Container(
@@ -104,20 +109,18 @@ class _WeatherHomeScreenState extends State<WeatherHomeScreen> {
                 ),
               ),
               const SizedBox(width: 16),
-
-IconButton(
-  onPressed: () {
-    context.read<ThemeState>().toggleTheme();
-  },
-  icon: Icon(
-    themeState.isDarkMode
-        ? Icons.dark_mode
-        : Icons.light_mode,
-  ),
-  color: theme.colorScheme.onSurface,
-),
-
-const SizedBox(width: 8),
+              IconButton(
+                onPressed: () {
+                  context.read<ThemeState>().toggleTheme();
+                },
+                icon: Icon(
+                  themeState.isDarkMode
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                ),
+                color: theme.colorScheme.onSurface,
+              ),
+              const SizedBox(width: 8),
               const SizedBox(width: 16),
               GestureDetector(
                 onTap: () {

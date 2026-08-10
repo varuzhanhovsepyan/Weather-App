@@ -5,9 +5,37 @@ import 'weather_service.dart';
 
 class WeatherState extends ChangeNotifier {
   final WeatherService _weatherService = WeatherService();
-  
-  WeatherModel? _currentWeather;
-  List<ForecastModel> _forecast = [];
+
+  WeatherModel? _currentWeather = WeatherModel(
+    cityName: 'Cupertino',
+    country: 'United States',
+    temperature: 24,
+    description: 'Clear sky',
+    icon: '01d',
+    humidity: 45,
+    windSpeed: 3.5,
+    dateTime: DateTime.now(),
+  );
+  List<ForecastModel> _forecast = [
+    ForecastModel(
+      dayName: 'Tuesday',
+      temperature: 25,
+      icon: '01d',
+      description: 'Clear sky',
+    ),
+    ForecastModel(
+      dayName: 'Wednesday',
+      temperature: 23,
+      icon: '02d',
+      description: 'Partly cloudy',
+    ),
+    ForecastModel(
+      dayName: 'Thursday',
+      temperature: 22,
+      icon: '10d',
+      description: 'Rain',
+    ),
+  ];
   List<String> _searchHistory = [];
   bool _isLoading = false;
   String? _error;
@@ -18,8 +46,40 @@ class WeatherState extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  Future<void> setMockWeather() async {
-    await searchCity('Cupertino');
+  void setMockWeather() {
+    _currentWeather = WeatherModel(
+      cityName: 'Cupertino',
+      country: 'United States',
+      temperature: 24,
+      description: 'Clear sky',
+      icon: '01d',
+      humidity: 45,
+      windSpeed: 3.5,
+      dateTime: DateTime.now(),
+    );
+    _forecast = [
+      ForecastModel(
+        dayName: 'Tuesday',
+        temperature: 25,
+        icon: '01d',
+        description: 'Clear sky',
+      ),
+      ForecastModel(
+        dayName: 'Wednesday',
+        temperature: 23,
+        icon: '02d',
+        description: 'Partly cloudy',
+      ),
+      ForecastModel(
+        dayName: 'Thursday',
+        temperature: 22,
+        icon: '10d',
+        description: 'Rain',
+      ),
+    ];
+    _error = null;
+    _isLoading = false;
+    notifyListeners();
   }
 
   void addToSearchHistory(String cityName) {
@@ -49,10 +109,10 @@ class WeatherState extends ChangeNotifier {
 
     try {
       final weatherData = await _weatherService.getWeatherByCity(cityName);
-      
+
       _currentWeather = weatherData['current'];
       _forecast = weatherData['forecast'];
-      
+
       addToSearchHistory(cityName);
       _isLoading = false;
       notifyListeners();

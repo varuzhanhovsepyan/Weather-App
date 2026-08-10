@@ -21,12 +21,6 @@ class NotificationsScreen extends StatelessWidget {
       ),
       body: Consumer<NotificationState>(
         builder: (context, notificationState, child) {
-          if (notificationState.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
           final token = notificationState.fcmToken;
 
           return Padding(
