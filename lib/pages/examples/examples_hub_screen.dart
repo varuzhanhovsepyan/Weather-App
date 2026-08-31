@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../l10n/app_localizations.dart';
 import '../animations_example/animations_example_screen.dart';
 import '../boxes_example/boxes_example_screen.dart';
+import '../advanced_playground/advanced_playground_screen.dart';
 import '../list_view_example/list_view_example_screen.dart';
 import '../notifications/notifications_screen.dart';
 import '../native_views/native_views_screen.dart';
@@ -29,6 +30,12 @@ class ExamplesHubScreen extends StatelessWidget {
             subtitle: 'builder · separated · custom',
             icon: Icons.list_alt,
             screen: ListViewExampleScreen(),
+          ),
+           const _ExampleTile(
+            title: 'Advanced Playground',
+            subtitle: '',
+            icon: Icons.code,
+            screen: AdvancedPlaygroundScreen(),
           ),
           const SizedBox(height: 12),
           const _ExampleTile(
